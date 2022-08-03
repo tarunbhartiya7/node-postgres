@@ -1,6 +1,6 @@
 ## Start
 
-Create a .env file and add DATABASE_URL and then start the application
+Create a .env file and add DATABASE_URL and SECRET and then start the application
 
 ```
 npm start

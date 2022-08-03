@@ -1,7 +1,14 @@
+// Note.sync();  will create table if not already exists
 const Note = require("./note");
+const User = require("./user");
 
-Note.sync(); // will create table if not already exists
+User.hasMany(Note);
+Note.belongsTo(User);
+
+Note.sync({ alter: true });
+User.sync({ alter: true });
 
 module.exports = {
   Note,
+  User,
 };
