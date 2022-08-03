@@ -2,6 +2,14 @@ GET http://localhost:3001/api/notes/
 
 ###
 
+GET http://localhost:3001/api/notes?important=false
+
+###
+
+GET http://localhost:3001/api/notes?search=React&important=false
+
+###
+
 GET http://localhost:3001/api/notes/2
 
 ###
