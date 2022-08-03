@@ -16,17 +16,17 @@ GET http://localhost:3001/api/notes/2
 
 POST http://localhost:3001/api/notes/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTY1OTUwNzk4M30.sWNR_GBdAwcSxmDeOID57YTywfa1jXcCmDWLchxKie0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTY1OTUxMDUxNywiZXhwIjoxNjU5NTEwNTc3fQ.KhASenkmEPWOGFicx_LP4-X5O2vGbdyFs31-jQ_4wq0
 
-{
-    "content": "React is awesome!",
+{ 
+    "content": "Angular is awesome!",
     "important": false
 }
 
 ###
 
-DELETE  http://localhost:3001/api/notes/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTY1OTUwNzk4M30.sWNR_GBdAwcSxmDeOID57YTywfa1jXcCmDWLchxKie0
+DELETE  http://localhost:3001/api/notes/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjEsImlhdCI6MTY1OTUxMDg0NiwiZXhwIjoxNjU5NTEwOTA2fQ.MJj_i4WyRdmdqq6pN7-VgGOQZ4LzBE2SJ2mOJJddrAk
 
 ###
 
