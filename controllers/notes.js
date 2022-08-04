@@ -65,6 +65,35 @@ router.post("/", tokenExtractor, async (req, res) => {
   }
 });
 
+router.post("/bulk-create", tokenExtractor, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.decodedToken.id);
+    await Note.bulkCreate([
+      {
+        content: "Content 1",
+        important: false,
+        userId: user.id,
+        date: new Date(),
+      },
+      {
+        content: "Content 2",
+        important: false,
+        userId: user.id,
+        date: new Date(),
+      },
+      {
+        content: "Content 3",
+        important: false,
+        userId: user.id,
+        date: new Date(),
+      },
+    ]);
+    res.json("Multiple items created");
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
 router.get("/:id", noteFinder, async (req, res) => {
   if (req.note) {
     res.json(req.note);
@@ -83,7 +112,7 @@ router.delete("/:id", tokenExtractor, noteFinder, async (req, res) => {
 router.put("/:id", tokenExtractor, noteFinder, async (req, res) => {
   if (req.note) {
     req.note.important = req.body.important;
-    await req.note.save();
+    await req.note.save(); // or you can use the note.update method as well
     res.json(req.note);
   } else {
     res.status(404).end();

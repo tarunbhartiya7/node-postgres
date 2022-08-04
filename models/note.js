@@ -21,6 +21,10 @@ Note.init(
     date: {
       type: DataTypes.DATE,
     },
+    // status: {
+    //   type: DataTypes.ENUM("1", "0"),
+    //   defaultValue: "1"
+    // }
   },
   {
     sequelize,
