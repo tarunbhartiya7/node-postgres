@@ -8,6 +8,7 @@
     "test": "jest --runInBand",
     "test:watch": "npm test -- --watchAll",
     "test:note-api": "jest tests/notes.test.js --runInBand  --watchAll",
+    "test:note-token-api": "jest tests/notes.token.test.js --runInBand  --watchAll",
     "test:user-api": "jest tests/users.test.js --runInBand  --watchAll"
   },
   "keywords": [],
