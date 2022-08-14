@@ -1,14 +1,16 @@
 const Sequelize = require("sequelize");
 const { DATABASE_URL } = require("./config");
 
-const sequelize = new Sequelize(DATABASE_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+const sequelize = new Sequelize(
+  process.env.PGDATABASE,
+  process.env.PGUSER,
+  process.env.PGPASSWORD,
+  {
+    host: process.env.PGHOST,
+    dialect: "postgres",
+    logging: false,
+  }
+);
 
 const connectToDatabase = async () => {
   try {
