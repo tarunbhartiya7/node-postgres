@@ -21,8 +21,13 @@ const tokenExtractor = (req, res, next) => {
 }
 
 const noteFinder = async (req, res, next) => {
-  req.note = await Note.findByPk(req.params.id)
-  next()
+  found = await Note.findByPk(req.params.id)
+  if (found) {
+    req.note = found
+    next()
+  } else {
+    res.status(404).end()
+  }
 }
 
 router.get('/', async (req, res) => {
