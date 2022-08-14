@@ -4,7 +4,9 @@ const app = require('../app')
 const api = supertest(app)
 const { Note } = require('../models')
 const { initialNotes, notesInDb, nonExistingId } = require('./test_helper')
+
 beforeEach(async () => {
+  // executes before each test in this file
   await Note.destroy({
     where: {},
     truncate: true,
@@ -20,10 +22,10 @@ describe('when there is initially some notes saved', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  // test('all notes are returned', async () => {
-  //   const response = await api.get('/api/notes')
-  //   expect(response.body).toHaveLength(initialNotes.length)
-  // })
+  test('all notes are returned', async () => {
+    const response = await api.get('/api/notes')
+    expect(response.body).toHaveLength(initialNotes.length)
+  })
 
   test('a specific note is within the returned notes', async () => {
     const response = await api.get('/api/notes')
@@ -35,6 +37,7 @@ describe('when there is initially some notes saved', () => {
 })
 
 afterAll(async () => {
+  // executes after all tests in this file
   await Note.destroy({
     where: {},
     truncate: true,

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "jest --watchAll"
+    "test": "jest --runInBand",
+    "test:watch": "npm test -- --watchAll"
   },
   "keywords": [],
   "author": "",
