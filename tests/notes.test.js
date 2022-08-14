@@ -1,5 +1,5 @@
-const sequelize = require('sequelize')
 const supertest = require('supertest')
+
 const app = require('../app')
 const api = supertest(app)
 const { Note } = require('../models')
@@ -8,7 +8,6 @@ const { initialNotes, notesInDb, nonExistingId } = require('./test_helper')
 beforeEach(async () => {
   // executes before each test in this file
   await Note.destroy({
-    where: {},
     truncate: true,
   })
   await Note.bulkCreate(initialNotes)
@@ -39,7 +38,6 @@ describe('when there is initially some notes saved', () => {
 afterAll(async () => {
   // executes after all tests in this file
   await Note.destroy({
-    where: {},
     truncate: true,
   })
 })

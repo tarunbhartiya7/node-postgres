@@ -1,5 +1,4 @@
-const Note = require('../models/note')
-const User = require('../models/user')
+const { Note, User } = require('../models')
 
 const initialNotes = [
   {
@@ -23,12 +22,12 @@ const nonExistingId = async () => {
 }
 
 const notesInDb = async () => {
-  const notes = await Note.find({})
+  const notes = await Note.findAll()
   return notes.map((note) => note.toJSON())
 }
 
 const usersInDb = async () => {
-  const users = await User.find({})
+  const users = await User.findAll()
   return users.map((u) => u.toJSON())
 }
 
