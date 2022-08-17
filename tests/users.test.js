@@ -6,23 +6,18 @@ const { User } = require('../models')
 const { usersInDb } = require('./test_helper')
 
 beforeEach(async () => {
-  try {
-    await User.destroy({
-      truncate: { cascade: true },
-    })
-    await User.create({
-      username: 'admin',
-      name: 'Admin',
-      password: 'password',
-    })
-  } catch (error) {
-    console.log(error)
-  }
+  await User.sync({ force: true })
+  await User.create({
+    username: 'admin',
+    name: 'Admin',
+    password: 'password',
+  })
 })
 
 describe('when there is initially one user in db', () => {
   test('creation succeeds with a fresh username', async () => {
     const usersAtStart = await usersInDb()
+
     const newUser = {
       username: 'mluukkai',
       name: 'Matti Luukkainen',
@@ -36,6 +31,7 @@ describe('when there is initially one user in db', () => {
       .expect('Content-Type', /application\/json/)
 
     const usersAtEnd = await usersInDb()
+
     expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
 
     const usernames = usersAtEnd.map((u) => u.username)
@@ -65,7 +61,5 @@ describe('when there is initially one user in db', () => {
 })
 
 afterAll(async () => {
-  await User.destroy({
-    truncate: { cascade: true },
-  })
+  await User.sync({ force: true })
 })
