@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const { Note, User } = require('../models')
-const { notesInDb } = require('./test_helper')
+const { notesInDb, generateToken, syncDb } = require('./test_helper')
 
 describe('addition of a new note', () => {
   let token
@@ -12,16 +12,7 @@ describe('addition of a new note', () => {
     await Note.sync({ force: true })
     await User.sync({ force: true })
 
-    const testUser = {
-      username: 'admin',
-      name: 'Admin',
-      password: 'password',
-    }
-
-    await User.create(testUser)
-
-    const response = await api.post('/api/login').send(testUser)
-    token = response.body.token
+    token = await generateToken()
   })
 
   test('succeeds with valid data', async () => {
@@ -59,6 +50,5 @@ describe('addition of a new note', () => {
 })
 
 afterAll(async () => {
-  await Note.sync({ force: true })
-  await User.sync({ force: true })
+  await syncDb()
 })

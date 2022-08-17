@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const { User } = require('../models')
-const { usersInDb } = require('./test_helper')
+const { usersInDb, syncDb } = require('./test_helper')
 
 beforeEach(async () => {
   await User.sync({ force: true })
@@ -61,5 +61,5 @@ describe('when there is initially one user in db', () => {
 })
 
 afterAll(async () => {
-  await User.sync({ force: true })
+  await syncDb()
 })

@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const { Note } = require('../models')
-const { initialNotes, notesInDb, nonExistingId } = require('./test_helper')
+const { initialNotes, notesInDb, syncDb } = require('./test_helper')
 
 beforeEach(async () => {
   await Note.sync({ force: true })
@@ -56,5 +56,5 @@ describe('viewing a specific note', () => {
 })
 
 afterAll(async () => {
-  await Note.sync({ force: true })
+  await syncDb()
 })

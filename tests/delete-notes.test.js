@@ -3,7 +3,12 @@ const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
 const { Note, User } = require('../models')
-const { notesInDb, initialNotes } = require('./test_helper')
+const {
+  notesInDb,
+  initialNotes,
+  generateToken,
+  syncDb,
+} = require('./test_helper')
 
 describe('deletion of a note', () => {
   let token
@@ -14,21 +19,11 @@ describe('deletion of a note', () => {
 
     await Note.bulkCreate(initialNotes)
 
-    const testUser = {
-      username: 'admin',
-      name: 'Admin',
-      password: 'password',
-    }
-
-    await User.create(testUser)
-
-    const response = await api.post('/api/login').send(testUser)
-    token = response.body.token
+    token = await generateToken()
   })
 
   test('succeeds with status code 204 if id is valid', async () => {
     const notesAtStart = await notesInDb()
-    console.log('notesAtStart', notesAtStart)
     const noteToDelete = notesAtStart[0]
 
     await api
@@ -37,7 +32,6 @@ describe('deletion of a note', () => {
       .expect(204)
 
     const notesAtEnd = await notesInDb()
-    console.log('notesAtEnd', notesAtEnd)
     expect(notesAtEnd).toHaveLength(initialNotes.length - 1)
 
     const contents = notesAtEnd.map((r) => r.content)
@@ -55,6 +49,5 @@ describe('deletion of a note', () => {
 })
 
 afterAll(async () => {
-  await Note.sync({ force: true })
-  await User.sync({ force: true })
+  await syncDb()
 })
