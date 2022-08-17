@@ -9,9 +9,8 @@ describe('addition of a new note', () => {
   let token
 
   beforeEach(async () => {
-    await Note.destroy({
-      truncate: true,
-    })
+    await Note.sync({ force: true })
+    await User.sync({ force: true })
 
     const testUser = {
       username: 'admin',
@@ -19,9 +18,6 @@ describe('addition of a new note', () => {
       password: 'password',
     }
 
-    await User.destroy({
-      truncate: { cascade: true },
-    })
     await User.create(testUser)
 
     const response = await api.post('/api/login').send(testUser)
@@ -63,11 +59,6 @@ describe('addition of a new note', () => {
 })
 
 afterAll(async () => {
-  await Note.destroy({
-    truncate: true,
-  })
-
-  await User.destroy({
-    truncate: { cascade: true },
-  })
+  await Note.sync({ force: true })
+  await User.sync({ force: true })
 })

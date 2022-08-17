@@ -9,12 +9,8 @@ describe('deletion of a note', () => {
   let token
 
   beforeEach(async () => {
-    await Note.destroy({
-      truncate: true,
-    })
-    await User.destroy({
-      truncate: { cascade: true },
-    })
+    await Note.sync({ force: true })
+    await User.sync({ force: true })
 
     await Note.bulkCreate(initialNotes)
 
@@ -32,6 +28,7 @@ describe('deletion of a note', () => {
 
   test('succeeds with status code 204 if id is valid', async () => {
     const notesAtStart = await notesInDb()
+    console.log('notesAtStart', notesAtStart)
     const noteToDelete = notesAtStart[0]
 
     await api
@@ -40,6 +37,7 @@ describe('deletion of a note', () => {
       .expect(204)
 
     const notesAtEnd = await notesInDb()
+    console.log('notesAtEnd', notesAtEnd)
     expect(notesAtEnd).toHaveLength(initialNotes.length - 1)
 
     const contents = notesAtEnd.map((r) => r.content)
@@ -57,11 +55,6 @@ describe('deletion of a note', () => {
 })
 
 afterAll(async () => {
-  await Note.destroy({
-    truncate: true,
-  })
-
-  await User.destroy({
-    truncate: { cascade: true },
-  })
+  await Note.sync({ force: true })
+  await User.sync({ force: true })
 })

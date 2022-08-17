@@ -2,14 +2,11 @@ const supertest = require('supertest')
 
 const app = require('../app')
 const api = supertest(app)
-const { Note, User } = require('../models')
+const { Note } = require('../models')
 const { initialNotes, notesInDb, nonExistingId } = require('./test_helper')
 
 beforeEach(async () => {
-  // executes before each test in this file
-  await Note.destroy({
-    truncate: true,
-  })
+  await Note.sync({ force: true })
   await Note.bulkCreate(initialNotes)
 })
 
@@ -59,8 +56,5 @@ describe('viewing a specific note', () => {
 })
 
 afterAll(async () => {
-  // executes after all tests in this file
-  await Note.destroy({
-    truncate: true,
-  })
+  await Note.sync({ force: true })
 })
