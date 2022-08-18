@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require("sequelize");
+const { Model, DataTypes } = require('sequelize')
 
-const { sequelize } = require("../util/db");
+const { sequelize } = require('../util/db')
 
 class Note extends Model {}
 
@@ -30,8 +30,13 @@ Note.init(
     sequelize,
     underscored: true,
     timestamps: false,
-    modelName: "note",
+    modelName: 'note',
+    indexes: [
+      {
+        fields: ['content'],
+      },
+    ],
   }
-);
+)
 
-module.exports = Note;
+module.exports = Note
