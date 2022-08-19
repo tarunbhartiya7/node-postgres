@@ -11,7 +11,8 @@
     "test:delete-note-api": "jest tests/delete-notes.test.js --runInBand  --watchAll",
     "test:user-api": "jest tests/users.test.js --runInBand  --watchAll",
     "test:delete-notes": "jest tests/delete-notes.test.js --runInBand  --watchAll",
-    "test:get-notes": "jest tests/get-notes.test.js --runInBand  --watchAll"
+    "test:get-notes": "jest tests/get-notes.test.js --runInBand  --watchAll",
+    "test:coverage": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
