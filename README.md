@@ -1,14 +1,8 @@
 ## Start
 
-Create a .env file and add DATABASE_URL and SECRET and then start the application
+`docker compose up -d` to start the database and then `npm start` to start the service.
 
-```
-npm start
-```
-
-## DB
-
-You can setup database on elephantsql.com
+`docker compose down` to stop and remove the databases.
 
 ## SQL commands
 

@@ -5,10 +5,12 @@ const User = require('./user')
 User.hasMany(Note)
 Note.belongsTo(User)
 
-if (process.env.NODE_ENV !== 'test') {
-  Note.sync()
-  User.sync()
-}
+;(async () => {
+  if (process.env.NODE_ENV !== 'test') {
+    await User.sync()
+    await Note.sync()
+  }
+})()
 
 module.exports = {
   Note,
