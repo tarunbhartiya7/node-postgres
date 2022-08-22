@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
+const { SECRET } = require('../config/environment')
 
 const { Note, User } = require('../models')
-const { SECRET } = require('../util/config')
 
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization')

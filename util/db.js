@@ -1,27 +1,29 @@
-const Sequelize = require("sequelize");
-const { DATABASE_URL } = require("./config");
+const Sequelize = require('sequelize')
+const dbConfig = require('../config/database')
+const { nodeEnv } = require('../config/environment')
 
-const sequelize = new Sequelize(
-  process.env.PGDATABASE,
-  process.env.PGUSER,
-  process.env.PGPASSWORD,
-  {
-    host: process.env.PGHOST,
-    dialect: "postgres",
-    logging: false,
-  }
-);
+const { username, password, host, port, database, dialect } = dbConfig[nodeEnv]
+
+const sequelize = new Sequelize({
+  username,
+  password,
+  host,
+  port,
+  database,
+  dialect,
+  logging: false,
+})
 
 const connectToDatabase = async () => {
   try {
-    await sequelize.authenticate();
-    console.log("database connected");
+    await sequelize.authenticate()
+    console.log('database connected')
   } catch (err) {
-    console.log("connecting database failed");
-    return process.exit(1);
+    console.log('connecting database failed')
+    return process.exit(1)
   }
 
-  return null;
-};
+  return null
+}
 
-module.exports = { connectToDatabase, sequelize };
+module.exports = { connectToDatabase, sequelize }
